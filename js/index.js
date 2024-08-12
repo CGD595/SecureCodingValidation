@@ -4,14 +4,13 @@ const confirmPasswordInput = document.getElementById("confirm-password");
 const passToggleBtn = document.getElementById("pass-toggle-btn");
 const confirmPassToggleBtn = document.getElementById("confirm-pass-toggle-btn");
 
-
 const showError = (field, errorText) => {
     field.classList.add("error");
     const errorElement = document.createElement("small");
     errorElement.classList.add("error-text");
     errorElement.innerText = errorText;
     field.closest(".form-group").appendChild(errorElement);
-}
+};
 
 const handleFormData = (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ const handleFormData = (e) => {
     const ageInput = document.getElementById("age");
     const cidInput = document.getElementById("cid");
 
-    const fullname = fullnameInput.value.trim();
+    const fullname = fullnameInput.value.trim().toLowerCase();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
@@ -36,15 +35,13 @@ const handleFormData = (e) => {
     const agePattern = /^[0-9]{1,3}$/;
     const cidPattern = /^\d{11}$/;
 
-
-    document.querySelectorAll(".form-group .error").forEach(field => field.classList.remove("error"));
-    document.querySelectorAll(".error-text").forEach(errorText => errorText.remove());
-
+    document.querySelectorAll(".form-group .error").forEach((field) => field.classList.remove("error"));
+    document.querySelectorAll(".error-text").forEach((errorText) => errorText.remove());
 
     if (fullname === "") {
-        showError(fullnameInput, "Enter your Username");
+        showError(fullnameInput, "Enter your fullname");
     } else if (!namePattern.test(fullname)) {
-        showError(fullnameInput, "Full name should only contain alphabets and spaces");
+        showError(fullnameInput, "Full name should only contain alphabets");
     }
 
     if (!emailPattern.test(email)) {
@@ -54,7 +51,37 @@ const handleFormData = (e) => {
     if (password === "") {
         showError(passwordInput, "Enter your password");
     } else if (!passwordPattern.test(password)) {
-        showError(passwordInput, "Password must contain at least 8 characters, including a capital letter, a lowercase letter, a number, and a special character");
+        showError(
+            passwordInput,
+            "Password must contain at least 8 characters, including a capital letter, a lowercase letter, a number, and a special character"
+        );
+    } else {
+        const lowercasePassword = password.toLowerCase();
+        const forbiddenSequences = ["qwerty", "123", "abc", "password", "letmein", "welcome"];
+
+        if (forbiddenSequences.some((seq) => lowercasePassword.includes(seq))) {
+            showError(passwordInput, "Password must not contain common sequences");
+        } else {
+            const containsName = lowercasePassword.includes(fullname);
+            const containsAge = lowercasePassword.includes(age);
+            const containsCID = lowercasePassword.includes(cid);
+
+            if (containsName && containsAge && containsCID) {
+                showError(passwordInput, "Password must not contain your name, age, and CID");
+            } else if (containsName && containsAge) {
+                showError(passwordInput, "Password must not contain both your name and age");
+            } else if (containsName && containsCID) {
+                showError(passwordInput, "Password must not contain both your name and CID");
+            } else if (containsAge && containsCID) {
+                showError(passwordInput, "Password must not contain both your age and CID");
+            } else if (containsName) {
+                showError(passwordInput, "Password must not contain your name");
+            } else if (containsAge) {
+                showError(passwordInput, "Password must not contain your age");
+            } else if (containsCID) {
+                showError(passwordInput, "Password must not contain your CID");
+            }
+        }
     }
 
     if (confirmPassword === "") {
@@ -73,27 +100,27 @@ const handleFormData = (e) => {
         showError(cidInput, "Enter your Citizen ID");
     } else if (!cidPattern.test(cid)) {
         showError(cidInput, "Citizen ID must be an 11-digit number and not alphabets or special characters");
-    } 
+    }
 
     if (gender === "") {
         showError(genderInput, "Select your gender");
     }
-    
 
     const errorInputs = document.querySelectorAll(".form-group .error");
     if (errorInputs.length > 0) return;
 
     form.submit();
-}
+};
 
-passToggleBtn.addEventListener('click', () => {
+passToggleBtn.addEventListener("click", () => {
     passToggleBtn.className = passwordInput.type === "password" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
     passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 });
 
-confirmPassToggleBtn.addEventListener('click', () => {
+confirmPassToggleBtn.addEventListener("click", () => {
     confirmPassToggleBtn.className = confirmPasswordInput.type === "password" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
     confirmPasswordInput.type = confirmPasswordInput.type === "password" ? "text" : "password";
 });
+
 
 form.addEventListener("submit", handleFormData);

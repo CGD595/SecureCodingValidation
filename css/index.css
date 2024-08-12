@@ -6,38 +6,44 @@
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
 }
+
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 10px;
   min-height: 100vh;
-  background: #000; /* Black background */
+  background: #000;
 }
+
 form {
   padding: 25px;
-  background: #fff; /* White form background */
+  background: #fff;
   max-width: 500px;
   width: 100%;
   border-radius: 7px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Slightly lighter shadow */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
+
 form h2 {
   font-size: 27px;
   text-align: center;
   margin: 0px 0 30px;
-  color: #000; /* Black text */
+  color: #000;
 }
+
 form .form-group {
   margin-bottom: 15px;
   position: relative;
 }
+
 form label {
   display: block;
   font-size: 15px;
   margin-bottom: 7px;
-  color: #000; /* Black text */
+  color: #000;
 }
+
 form input,
 form select {
   height: 45px;
@@ -45,26 +51,28 @@ form select {
   width: 100%;
   font-size: 15px;
   outline: none;
-  background: #fff; /* White input background */
+  background: #fff;
   border-radius: 3px;
-  border: 1px solid #333; /* Dark border */
-  color: #000; /* Black text */
+  border: 1px solid #333;
+  color: #000;
 }
+
 form input:focus,
 form select:focus {
-  border-color: #555; /* Darker border on focus */
+  border-color: #555;
 }
+
 form input.error,
 form select.error {
-  border-color: #f91919; /* Red border for errors */
-  background: #f9f0f1; /* Light red background for errors */
+  border-color: #f91919;
+  background: #f9f0f1;
 }
 
 form small {
   font-size: 14px;
   margin-top: 5px;
   display: block;
-  color: #f91919; /* Red error text */
+  color: #f91919;
 }
 
 form .input-container {
@@ -73,7 +81,7 @@ form .input-container {
 
 form .input-container input {
   width: 100%;
-  padding-right: 45px; /* Make room for the eye icon */
+  padding-right: 45px;
 }
 
 form .input-container i {
@@ -85,13 +93,14 @@ form .input-container i {
   line-height: 45px;
   width: 45px;
   cursor: pointer;
-  color: #333; /* Dark icon color */
+  color: #333;
   text-align: center;
 }
 
 .submit-btn {
   margin-top: 30px;
 }
+
 .submit-btn input {
   color: white;
   border: none;
@@ -102,19 +111,20 @@ form .input-container i {
   cursor: pointer;
   font-weight: 500;
   text-align: center;
-  background: #000; /* Black submit button */
+  background: #000;
   transition: 0.2s ease;
 }
+
 .submit-btn input:hover {
-  background: #333; /* Darker black on hover */
+  background: #333;
 }
 
-/* Specific styling for new fields */
 form input[type="number"] {
   appearance: textfield;
-  color: #000; /* Black text */
-  background: #fff; /* White input background */
+  color: #000;
+  background: #fff;
 }
+
 form input[type="number"]::-webkit-outer-spin-button,
 form input[type="number"]::-webkit-inner-spin-button {
   appearance: none;
