@@ -2,6 +2,7 @@ const form = document.querySelector("form");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm-password");
 const passToggleBtn = document.getElementById("pass-toggle-btn");
+const confirmPassToggleBtn = document.getElementById("confirm-pass-toggle-btn");
 
 // Function to display error messages
 const showError = (field, errorText) => {
@@ -47,7 +48,7 @@ const handleFormData = (e) => {
 
     // Performing validation checks
     if (fullname === "") {
-        showError(fullnameInput, "Enter your full name");
+        showError(fullnameInput, "Enter your Username");
     } else if (!namePattern.test(fullname)) {
         showError(fullnameInput, "Full name should only contain alphabets and spaces");
     }
@@ -78,7 +79,7 @@ const handleFormData = (e) => {
         showError(cidInput, "Enter your Citizen ID");
     } else if (!cidPattern.test(cid)) {
         showError(cidInput, "Citizen ID must be an 11-digit number and not alphabets or special characters");
-    }
+    } 
 
     if (date === "") {
         showError(dateInput, "Select your date of birth");
@@ -87,7 +88,6 @@ const handleFormData = (e) => {
     if (gender === "") {
         showError(genderInput, "Select your gender");
     }
-    
     
     // Checking for any remaining errors before form submission
     const errorInputs = document.querySelectorAll(".form-group .error");
@@ -101,6 +101,11 @@ const handleFormData = (e) => {
 passToggleBtn.addEventListener('click', () => {
     passToggleBtn.className = passwordInput.type === "password" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
     passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+});
+
+confirmPassToggleBtn.addEventListener('click', () => {
+    confirmPassToggleBtn.className = confirmPasswordInput.type === "password" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+    confirmPasswordInput.type = confirmPasswordInput.type === "password" ? "text" : "password";
 });
 
 // Handling form submission event

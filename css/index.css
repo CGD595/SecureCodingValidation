@@ -66,18 +66,29 @@ form small {
   display: block;
   color: #f91919; /* Red error text */
 }
-form .password i {
+
+form .input-container {
+  position: relative;
+}
+
+form .input-container input {
+  width: 100%;
+  padding-right: 45px; /* Make room for the eye icon */
+}
+
+form .input-container i {
   position: absolute;
-  right: 0px;
+  right: 0;
   height: 45px;
-  top: 28px;
-  font-size: 13px;
+  top: 0;
+  font-size: 16px;
   line-height: 45px;
   width: 45px;
   cursor: pointer;
   color: #333; /* Dark icon color */
   text-align: center;
 }
+
 .submit-btn {
   margin-top: 30px;
 }
