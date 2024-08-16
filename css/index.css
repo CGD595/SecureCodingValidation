@@ -130,3 +130,26 @@ form input[type="number"]::-webkit-inner-spin-button {
   appearance: none;
   margin: 0;
 }
+
+form .password-strength {
+  font-size: 14px;
+  color: #f91919;
+  margin-top: 5px;
+}
+
+form .valid-icon {
+  position: absolute;
+  right: 0;
+  height: 45px;
+  top: 0;
+  font-size: 16px;
+  line-height: 45px;
+  width: 45px;
+  color: green;
+  text-align: center;
+}
+
+#error-summary {
+  color: red;
+  margin-bottom: 15px;
+}
