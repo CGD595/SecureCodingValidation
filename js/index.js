@@ -5,7 +5,26 @@ const passToggleBtn = document.getElementById("pass-toggle-btn");
 const confirmPassToggleBtn = document.getElementById("confirm-pass-toggle-btn");
 
 const blacklistedWords = ["qwerty", "123", "abc", "password", "letmein", "welcome"];
-const whitelistedEmails = ["gmail.com", "icloud.com", "rub.edu.bt"];
+const whitelistedEmails = [
+    "gmail.com", 
+    "icloud.com", 
+    "rub.edu.bt",
+    "yahoo.com",
+    "hotmail.com",
+    "outlook.com",
+    "aol.com",
+    "mail.com",
+    "zoho.com",
+    "protonmail.com",
+    "tutanota.com",
+    "gmx.com",
+];
+
+// Create a regex pattern for whitelisted email domains
+const whitelistedEmailPattern = new RegExp(
+    `^([a-zA-Z0-9._%+-]+)@(${whitelistedEmails.join('|')})$`
+);
+
 
 const showError = (field, errorText) => {
     field.classList.add("error");
@@ -18,6 +37,9 @@ const showError = (field, errorText) => {
     } else {
         errorElement.innerText = errorText;
     }
+    // Reset border color if there is an error
+    field.style.borderColor = "#f91919"; // Red color
+    field.style.background = "#f9f0f1"; // Light red background
 };
 
 const clearError = (field) => {
@@ -26,6 +48,9 @@ const clearError = (field) => {
     if (errorElement) {
         errorElement.remove();
     }
+    // Add green border on success
+    field.style.borderColor = "#4CAF50"; // Green color
+    field.style.background = "#e8f5e9"; // Light green background
 };
 
 const capitalizeFullName = (input) => {
@@ -62,7 +87,7 @@ const validateField = (field) => {
             const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
             const emailDomain = value.split('@')[1];
             if (!emailPattern.test(value)) {
-                showError(field, "Enter a valid email address");
+                showError(field, "Invalid email address");
             } else if (!whitelistedEmails.includes(emailDomain)) {
                 showError(field, "Email domain is not whitelisted");
             } else {
@@ -100,8 +125,8 @@ const validateField = (field) => {
             const age = parseInt(value, 10);
             if (value === "") {
                 showError(field, "Enter your age");
-            } else if (!agePattern.test(value) || age < 0 || age > 150) {
-                showError(field, "Enter a valid age between 0 and 150");
+            } else if (!agePattern.test(value) || age < 1 || age > 150) {
+                showError(field, "Enter a valid age between 1 and 150");
             } else {
                 clearError(field);
             }
@@ -109,15 +134,22 @@ const validateField = (field) => {
 
         case "cid":
             const cidPattern = /^\d{11}$/;
+            const hasAlphabets = /[a-zA-Z]/.test(value);
+            const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+        
             if (value === "") {
                 showError(field, "Enter your Citizen ID");
+            } else if (hasAlphabets) {
+                showError(field, "Citizen ID should not contain alphabets");
+            } else if (hasSpecialChars) {
+                showError(field, "Citizen ID should not contain special characters");
             } else if (!cidPattern.test(value)) {
-                showError(field, "Citizen ID must be an 11-digit number and not alphabets or special characters");
+                showError(field, "Citizen ID must be exactly 11 digits long");
             } else {
                 clearError(field);
             }
             break;
-
+            
         case "gender":
             if (value === "") {
                 showError(field, "Select your gender");
