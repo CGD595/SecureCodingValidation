@@ -1,0 +1,18 @@
+[
+    {
+        "name": "John Doe",
+        "email": "john.doe@gmail.com",
+        "password": "$2b$10$e/1gG1P2hZ/4M5j5nt7ujeyKvn6FYOww5duzTz7yq11xu36crvBsy",
+        "age": 30,
+        "cid": "12345678901",
+        "gender": "Male"
+    },
+    {
+        "name": "Chime Gyeltshen Dorji",
+        "email": "cgd@gmail.com",
+        "password": "$2b$10$e/1gG1P2hZ/4M5j5nt7ujeyKvn6FYOww5duzTz7yq11xu36crvBsy",
+        "age": 20,
+        "cid": "11504005013",
+        "gender": "Male"
+    }
+]

@@ -11,6 +11,23 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, '../template/css')));
 app.use(express.static(path.join(__dirname, '../js')));
 
+// Custom validation functions
+const isValidEmailDomain = (value) => {
+    const whitelistedEmails = [
+        "gmail.com", "icloud.com", "rub.edu.bt", "yahoo.com", "hotmail.com",
+        "outlook.com", "aol.com", "mail.com", "zoho.com", "protonmail.com", "tutanota.com", "gmx.com"
+    ];
+    const emailDomain = value.split('@')[1];
+    return whitelistedEmails.includes(emailDomain);
+};
+
+const isStrongPassword = (value) => {
+    const blacklistedWords = ["qwerty", "123", "abc", "password", "letmein", "welcome"];
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const lowercasePassword = value.toLowerCase();
+    return passwordPattern.test(value) && !blacklistedWords.some((word) => lowercasePassword.includes(word));
+};
+
 // Parse incoming requests with URL-encoded payloads and JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -92,19 +109,3 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 
-// Custom validation functions
-const isValidEmailDomain = (value) => {
-    const whitelistedEmails = [
-        "gmail.com", "icloud.com", "rub.edu.bt", "yahoo.com", "hotmail.com",
-        "outlook.com", "aol.com", "mail.com", "zoho.com", "protonmail.com", "tutanota.com", "gmx.com"
-    ];
-    const emailDomain = value.split('@')[1];
-    return whitelistedEmails.includes(emailDomain);
-};
-
-const isStrongPassword = (value) => {
-    const blacklistedWords = ["qwerty", "123", "abc", "password", "letmein", "welcome"];
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const lowercasePassword = value.toLowerCase();
-    return passwordPattern.test(value) && !blacklistedWords.some((word) => lowercasePassword.includes(word));
-};

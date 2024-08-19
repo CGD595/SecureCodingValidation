@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 
 mongoose.connect("mongodb://localhost:27017/SecureCoding")
-.then(()=>{
+.then(() => {
     console.log('Mongoose Connected');
+    console.log("hi");
+    
 })
-.catch((e)=>{
+.catch((e) => {
     console.log('Connection failed:', e);
 });
 
@@ -22,7 +24,6 @@ const logInSchema = new mongoose.Schema({
         required: [true, 'Email is required'],
         validate: {
             validator: function(value) {
-                // Custom validator for email domain
                 const whitelistedEmails = [
                     "gmail.com", "icloud.com", "rub.edu.bt", "yahoo.com", "hotmail.com",
                     "outlook.com", "aol.com", "mail.com", "zoho.com", "protonmail.com", "tutanota.com", "gmx.com"
